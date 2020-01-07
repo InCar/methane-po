@@ -1,0 +1,25 @@
+package $package$;
+
+public class GitVer {
+    private static final String _branch = "$branch$";
+    private static final String _rev = "$rev$";
+    private static final String _hash = "$hash$";
+    private static final String _hash160 = "$hash160$";
+    private static final String _sourceLink = "$sourceLink$";
+
+    public static String get_branch() { return _branch; }
+
+    public static String get_rev() { return _rev; }
+
+    public static String get_hash() { return _hash; }
+
+    public static String get_hash160() { return _hash160; }
+
+    public static String getVersion(){ return _branch + "." + _rev + "@" + _hash; }
+
+    public static String getSourceLink(){
+        return _sourceLink.replaceFirst(
+                "(https://github\\.com/.+)(\\.git)",
+                "$1/tree/" + _hash160);
+    }
+}
