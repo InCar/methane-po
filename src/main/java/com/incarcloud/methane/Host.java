@@ -3,6 +3,7 @@ package com.incarcloud.methane;
 import com.incarcloud.methane.comm.Transceiver;
 import com.incarcloud.methane.comm.TransceiverFactory;
 import com.incarcloud.methane.mgr.VehicleMgr;
+import com.incarcloud.methane.monitor.MonitorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -24,6 +25,10 @@ public final class Host {
     // 车辆管理
     @Autowired
     private VehicleMgr _vehicleMgr;
+
+    @Autowired
+    private MonitorService _monitorService;
+
     /**
      * 启动
      */
@@ -35,6 +40,11 @@ public final class Host {
         // _transceiver.SetReceiver(_vehicleMgr);
         // TODO: 让收发器开始工作
         // _transceiver.Start();
+
+        // TODO: 建立监控服务和车辆管理之间的联系
+        // _monitorService.SetMonitor(_vehicleMgr);
+        // TODO: 让监控服务开台工作
+        // _monitorService.Start();
     }
 
     /**
