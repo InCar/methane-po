@@ -9,6 +9,9 @@ build
 out
 bin
 
+# protoc generated
+src/main/java/com/incarcloud/std
+
 *.log
 *.out
 *.iml

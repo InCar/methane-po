@@ -18,7 +18,7 @@ public final class TransceiverFactory {
      */
     public Transceiver Create(){
         // TODO: 根据配置项创建具体的收发器
-        // TransceiverKafka || TransceiverRocketMQ || TransceiverGoogleRPC
+        // TransceiverKafka || TransceiverRocketMQ || TransceiverGRPC
         return null;
     }
 }

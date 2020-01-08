@@ -39,6 +39,7 @@ public abstract class Transceiver {
     protected HelloV.HelloResponseV1 OnReceive(HelloV.HelloRequestV1 input){
         // TODO: 从input中解出数据,交给_receiver进行处理,然后反馈处理结果
         // int result = _receiver.OnReceive(vin);
+        // return HelloV.HelloResponseV1.newBuilder().setRes(result).build();
         return null;
     }
 }
