@@ -1,6 +1,6 @@
 package $package$;
 
-public class GitVer {
+public final class GitVer {
     private static final String _branch = "$branch$";
     private static final String _rev = "$rev$";
     private static final String _hash = "$hash$";
