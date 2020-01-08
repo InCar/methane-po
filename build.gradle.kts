@@ -1,9 +1,13 @@
+import com.google.protobuf.gradle.*
+import org.gradle.kotlin.dsl.provider.gradleKotlinDslOf
+
 group = "com.incarcloud.methane"
 version = "1.0.0"
 
 plugins {
     java
     id("org.springframework.boot") version "2.2.2.RELEASE"
+    id("com.google.protobuf") version "0.8.11"
 }
 
 repositories {
@@ -19,6 +23,11 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter:2.2.+"){
         exclude("org.springframework.boot", "spring-boot-starter-logging")
     }
+    implementation("com.google.protobuf:protobuf-java:3.11.+")
+    implementation("io.grpc:grpc-netty-shaded:1.26.+")
+    implementation("io.grpc:grpc-protobuf:1.26.+")
+    implementation("io.grpc:grpc-stub:1.26.+")
+
     implementation("org.slf4j:slf4j-api:1.7.+")
     implementation("org.apache.logging.log4j:log4j-core:2.13.+")
     runtimeOnly("org.apache.logging.log4j:log4j-slf4j-impl:2.13.+")
@@ -97,6 +106,42 @@ tasks.withType<Test>(){
         filter{
             includeTestsMatching(project.properties[testCaseOnly]?.toString())
         }
+    }
+}
+
+protobuf {
+    generatedFilesBaseDir = "$projectDir/src"
+
+    protoc {
+        // The artifact spec for the Protobuf Compiler
+        artifact = "com.google.protobuf:protoc:3.11.2"
+    }
+
+    plugins {
+        // Optional: an artifact spec for a protoc plugin, with "grpc" as
+        // the identifier, which can be referred to in the "plugins"
+        // container of the "generateProtoTasks" closure.
+        id("grpc") {
+            artifact = "io.grpc:protoc-gen-grpc-java:1.26.0"
+
+        }
+    }
+
+    generateProtoTasks {
+        ofSourceSet("main").forEach {
+            it.plugins {
+                // Apply the "grpc" plugin whose spec is defined above, without options.
+                id("grpc"){
+                    outputSubDir = "java"
+                }
+            }
+        }
+    }
+}
+
+tasks.named("clean"){
+    doLast{
+        delete("$projectDir/src/main/java/com/incarcloud/std")
     }
 }
 

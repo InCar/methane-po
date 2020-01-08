@@ -6,9 +6,12 @@ import org.slf4j.LoggerFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.LoggerContext;
 import org.apache.logging.log4j.core.config.Configuration;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+@SpringBootApplication
 public class App implements CommandLineRunner {
     private final static Logger s_logger = LoggerFactory.getLogger(App.class);
 
@@ -16,13 +19,15 @@ public class App implements CommandLineRunner {
         SpringApplication.run(App.class);
     }
 
+    @Autowired
+    private Host _host;
+
     @Override
     public void run(String... args) {
         logStartupInfo();
-    }
 
-    public int sum(int a, int b){
-        return a+b;
+        // 启动
+        _host.Start();
     }
 
     private void logStartupInfo(){
