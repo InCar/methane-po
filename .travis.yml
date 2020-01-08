@@ -12,7 +12,7 @@ cache:
         - $HOME/.gradle
 
 install:
-    - gradle assemble
+    - gradle assemble --status
 
 script:
     - gradle check
