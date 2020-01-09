@@ -1,6 +1,7 @@
 package com.incarcloud.methane.comm;
 
 import com.incarcloud.std.HelloV;
+import io.grpc.ServerBuilder;
 
 /**
  * 收发器.和网关通信
@@ -15,6 +16,13 @@ public abstract class Transceiver {
      */
     public void SetReceiver(IReceiver receiver){
         _receiver = receiver;
+    }
+
+    /**
+     * 配置GRPC
+     */
+    public ServerBuilder<?> ConfigureGRPC(ServerBuilder<?> buider){
+        return buider;
     }
 
     /**

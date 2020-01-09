@@ -2,39 +2,17 @@ package com.incarcloud.methane.comm;
 
 import com.incarcloud.std.HelloServiceV1Grpc;
 import com.incarcloud.std.HelloV;
-import io.grpc.Server;
 import io.grpc.ServerBuilder;
 import io.grpc.stub.StreamObserver;
-
-import java.io.IOException;
 
 /**
  * 直接利用GRPC的收发器实现
  */
 class TransceiverGRPC extends Transceiver {
-    private Server _grpcSrv = null;
-
-    // TODO: Add Get/Set
-    private int _port = 9999;
-
     @Override
-    public void Start() {
-        // Create google RPC server
-        _grpcSrv = ServerBuilder.forPort(_port)
-                .addService(new HelloServiceV1Impl(this))
-                .build();
-
-        try{
-            _grpcSrv.start();
-        }catch (IOException ex) {
-            // TODO:
-        }
-    }
-
-    @Override
-    public void Stop() {
-        if(_grpcSrv != null)
-            _grpcSrv.shutdown();
+    public ServerBuilder<?> ConfigureGRPC(ServerBuilder<?> buider) {
+        buider.addService(new HelloServiceV1Impl(this));
+        return super.ConfigureGRPC(buider);
     }
 
     @Override

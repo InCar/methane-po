@@ -2,14 +2,11 @@ package com.incarcloud.methane.monitor;
 
 import com.incarcloud.std.CountServiceV1Grpc;
 import com.incarcloud.std.HelloM;
-import com.incarcloud.std.HelloV;
-import io.grpc.Server;
 import io.grpc.ServerBuilder;
 import io.grpc.stub.StreamObserver;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -19,13 +16,8 @@ import static org.springframework.beans.factory.config.ConfigurableBeanFactory.S
 @Component
 @Scope(SCOPE_PROTOTYPE)
 public class MonitorService extends CountServiceV1Grpc.CountServiceV1ImplBase {
-    private Server _grpcSrv = null;
-
     // 实际承载业务
     private IMonitor _monitor = null;
-
-    // TODO: Get/Set
-    private int _port = 8888;
 
     /**
      * 设置业务逻辑的实际实现
@@ -35,16 +27,14 @@ public class MonitorService extends CountServiceV1Grpc.CountServiceV1ImplBase {
         _monitor = monitor;
     }
 
-    public void Start(){
-        _grpcSrv = ServerBuilder.forPort(_port)
-                .addService(this)
-                .build();
+    public ServerBuilder<?> ConfigureGRPC(ServerBuilder<?> buider) {
+        return buider.addService(this);
+    }
 
-        try{
-            _grpcSrv.start();
-        }catch (IOException ex) {
-            // TODO:
-        }
+    public void Start(){
+    }
+
+    public void Stop(){
     }
 
     @Override
