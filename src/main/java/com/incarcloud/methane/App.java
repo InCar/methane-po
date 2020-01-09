@@ -26,8 +26,17 @@ public class App implements CommandLineRunner {
     public void run(String... args) {
         logStartupInfo();
 
+        // 配置
+        _host.Config();
         // 启动
         _host.Start();
+
+        Runtime.getRuntime().addShutdownHook(new Thread(()->{
+            _host.Stop();
+            s_logger.info("Shutdown.");
+        }));
+
+        _host.BlockAndWait();
     }
 
     private void logStartupInfo(){
