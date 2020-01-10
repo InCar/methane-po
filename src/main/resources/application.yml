@@ -4,3 +4,12 @@ logging.config:
 # Spring settings
 spring:
   profiles.active:
+
+
+
+#GRPC监听端口(默认：9999)
+grpc:
+  port: 9999
+
+#收发器配置(1：GRPC 2：kafka 3：RocketMQ)
+transceiver: 1

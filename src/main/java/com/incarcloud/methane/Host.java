@@ -7,6 +7,7 @@ import com.incarcloud.methane.monitor.MonitorService;
 import io.grpc.Server;
 import io.grpc.ServerBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -17,10 +18,12 @@ import static org.springframework.beans.factory.config.ConfigurableBeanFactory.S
 /**
  * 宿主
  */
-@Component @Scope(SCOPE_PROTOTYPE)
+@Component
+@Scope(SCOPE_PROTOTYPE)
 public final class Host {
-    // TODO: From configuration
-    private int _port = 9999;
+    //配置grpc监听端口
+    @Value(value = "${grpc.port}")
+    private int _port;
     // Google RPC Server
     private Server _grpcServer = null;
 
@@ -43,7 +46,7 @@ public final class Host {
     /**
      * 配置
      */
-    public void Config(){
+    public void Config() {
         // google rpc
         _grpcBuilder = ServerBuilder.forPort(_port);
 
@@ -60,7 +63,7 @@ public final class Host {
     /**
      * 启动
      */
-    public void Start(){
+    public void Start() {
         // 启动
         try {
             // 收发器开始工作
@@ -79,14 +82,14 @@ public final class Host {
     /**
      * 停止
      */
-    public void Stop(){
+    public void Stop() {
         // 停止
         _grpcServer.shutdown();
         _monitorService.Stop();
         _transceiver.Stop();
     }
 
-    public void BlockAndWait(){
+    public void BlockAndWait() {
         try {
             _grpcServer.awaitTermination();
         } catch (InterruptedException e) {
