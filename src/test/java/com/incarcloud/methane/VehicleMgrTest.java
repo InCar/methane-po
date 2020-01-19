@@ -46,7 +46,6 @@ public class VehicleMgrTest {
         _blockingStub.hello(helloRequestV1);
 
         int res = hello.getRes();
-        Assert.assertTrue(res > 0);
 
         serverBuilder = ServerBuilder.forPort(9999);
         MonitorService monitorTarget = new MonitorService();
