@@ -12,42 +12,44 @@ public abstract class Transceiver {
 
     /**
      * 由外部指定数据处理对象
+     *
      * @param receiver
      */
-    public void SetReceiver(IReceiver receiver){
+    public void SetReceiver(IReceiver receiver) {
         _receiver = receiver;
     }
 
     /**
      * 配置GRPC
      */
-    public ServerBuilder<?> ConfigureGRPC(ServerBuilder<?> buider){
+    public ServerBuilder<?> ConfigureGRPC(ServerBuilder<?> buider) {
         return buider;
     }
 
     /**
      * 开始收发数据
      */
-    public void Start(){
+    public void Start() {
         // TODO:
     }
 
     /**
      * 停止收发数据
      */
-    public void Stop(){
+    public void Stop() {
         // TODO:
     }
 
     /**
      * 由派生类在收到网关的数据时调用
+     *
      * @param input
      * @return
      */
-    protected HelloV.HelloResponseV1 OnReceive(HelloV.HelloRequestV1 input){
-        // TODO: 从input中解出数据,交给_receiver进行处理,然后反馈处理结果
-        // int result = _receiver.OnReceive(vin);
-        // return HelloV.HelloResponseV1.newBuilder().setRes(result).build();
-        return null;
+    protected HelloV.HelloResponseV1 OnReceive(HelloV.HelloRequestV1 input) {
+        // 从input中解出数据,交给_receiver进行处理,然后反馈处理结果
+        System.out.println("---onReceive-----" + input.getVin());
+        int result = _receiver.OnReceive(input.getVin());
+        return HelloV.HelloResponseV1.newBuilder().setRes(result).build();
     }
 }

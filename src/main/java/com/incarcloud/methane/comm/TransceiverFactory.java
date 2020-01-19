@@ -15,7 +15,11 @@ import static org.springframework.beans.factory.config.ConfigurableBeanFactory.S
 public final class TransceiverFactory {
 
     @Value(value = "${transceiver}")
-    private int transceiver;
+    private String transceiver;
+
+    public void setTransceiver(String transceiver) {
+        this.transceiver = transceiver;
+    }
 
     /**
      * 创建收发器
@@ -26,11 +30,11 @@ public final class TransceiverFactory {
         //根据配置项创建具体的收发器 1：GRPC 2：kafka 3：RocketMQ
         // TransceiverKafka || TransceiverRocketMQ || TransceiverGRPC
         Transceiver ts = null;
-        if (transceiver == 1) {
+        if (transceiver.equals("grpc")) {
             ts = new TransceiverGRPC();
-        } else if (transceiver == 2) {
+        } else if (transceiver.equals("kafka")) {
             //ts = new TransceiverKafka;
-        } else if (transceiver == 3) {
+        } else if (transceiver.equals("RocketMQ")) {
             //ts = new TransceiverRocketMQ;
         } else { //其他类型暂不支持
             throw new RuntimeException("Not Supported!");

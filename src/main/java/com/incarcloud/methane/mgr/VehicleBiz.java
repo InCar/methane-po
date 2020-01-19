@@ -1,10 +1,12 @@
 package com.incarcloud.methane.mgr;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 /**
  * 车辆业务,一个对象对应一车车辆
  */
 class VehicleBiz {
-    private int msgCount = 0; //消息计数值
+    private AtomicInteger msgCount = new AtomicInteger(0); //消息计数值
     private String vin; //车架号
 
     // 车架号
@@ -20,11 +22,11 @@ class VehicleBiz {
     public int getTotalMsgCount() {
         //获取当前的消息计数值
 
-        return msgCount;
+        return msgCount.get();
     }
 
     public void increaseMsgCount() {
         //累加消息计数
-        msgCount++;
+        msgCount.incrementAndGet();
     }
 }

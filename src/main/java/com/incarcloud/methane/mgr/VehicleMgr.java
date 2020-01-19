@@ -31,17 +31,20 @@ public final class VehicleMgr implements IReceiver, IMonitor {
      */
     @Override
     public int OnReceive(String vin) {
-        // TODO: 交给_mapVehicle中的一个具体的对象去处理
+        //交给_mapVehicle中的一个具体的对象去处理
         try {
             VehicleBiz vehicleBiz = _mapVehicle.get(vin);
             //1、已存在该对象
             if (vehicleBiz != null) {
-                return 1;
+                vehicleBiz.increaseMsgCount();
+                _mapVehicle.put(vin, vehicleBiz);
+                return vehicleBiz.getTotalMsgCount();
             } else { //2、不存在创建一个对象
                 vehicleBiz = new VehicleBiz();
                 vehicleBiz.setVin(vin);
+                vehicleBiz.increaseMsgCount();
                 _mapVehicle.put(vin, vehicleBiz);
-                return 1;
+                return vehicleBiz.getTotalMsgCount();
             }
         } catch (Exception e) {
             return -1;
@@ -70,12 +73,21 @@ public final class VehicleMgr implements IReceiver, IMonitor {
     @Override
     public Map<String, Integer> GetMsgCounts(List<String> listVins) {
         Map<String, Integer> msgCountMap = new HashMap<>();
-        for (String vin : listVins) {
-            VehicleBiz vehicleBiz = _mapVehicle.get(vin);
-            if (vehicleBiz == null) {
-                msgCountMap.put(vin, 0);
-            } else {
-                msgCountMap.put(vin, vehicleBiz.getTotalMsgCount());
+        if (_mapVehicle.size() == 0) {
+            return msgCountMap;
+        }
+        if (listVins != null && listVins.size() > 0) {
+            for (String vin : listVins) {
+                VehicleBiz vehicleBiz = _mapVehicle.get(vin);
+                if (vehicleBiz == null) {
+                    msgCountMap.put(vin, 0);
+                } else {
+                    msgCountMap.put(vin, vehicleBiz.getTotalMsgCount());
+                }
+            }
+        } else {
+            for (Map.Entry<String, VehicleBiz> entry : _mapVehicle.entrySet()) {
+                msgCountMap.put(entry.getKey(), entry.getValue().getTotalMsgCount());
             }
         }
         return msgCountMap;
