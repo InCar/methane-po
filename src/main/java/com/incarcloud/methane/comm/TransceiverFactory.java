@@ -34,8 +34,10 @@ public final class TransceiverFactory {
             ts = new TransceiverGRPC();
         } else if (transceiver.equals("kafka")) {
             //ts = new TransceiverKafka;
+            throw new RuntimeException("kafka Not Supported!");
         } else if (transceiver.equals("RocketMQ")) {
             //ts = new TransceiverRocketMQ;
+            throw new RuntimeException("rocket Not Supported!");
         } else { //其他类型暂不支持
             throw new RuntimeException("Not Supported!");
         }

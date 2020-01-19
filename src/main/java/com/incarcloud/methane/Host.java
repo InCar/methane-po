@@ -75,7 +75,7 @@ public final class Host {
             _grpcServer = _grpcBuilder.build();
             _grpcServer.start();
         } catch (IOException e) {
-            // TODO: log error
+            e.printStackTrace();
         }
     }
 
@@ -93,7 +93,7 @@ public final class Host {
         try {
             _grpcServer.awaitTermination();
         } catch (InterruptedException e) {
-            // TODO: log error
+            e.printStackTrace();
         }
     }
 }
