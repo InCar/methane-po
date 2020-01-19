@@ -33,7 +33,7 @@ public class TransceiverGRPCTest {
     @Test
     public void transceiverGRPC() throws IOException {
         TransceiverFactory transceiverFactory = new TransceiverFactory();
-        ServerBuilder<?> serverBuilder = ServerBuilder.forPort(8888);
+        ServerBuilder<?> serverBuilder = ServerBuilder.forPort(2222);
         transceiverFactory.setTransceiver("grpc");
 
         Transceiver target = transceiverFactory.Create();
@@ -44,7 +44,7 @@ public class TransceiverGRPCTest {
         Server channel = serverBuilder.build();
         channel.start();
 
-        ManagedChannel _channel = ManagedChannelBuilder.forAddress("127.0.0.1", 8888)
+        ManagedChannel _channel = ManagedChannelBuilder.forAddress("127.0.0.1", 2222)
                 .usePlaintext()
                 .build();
         HelloServiceV1Grpc.HelloServiceV1BlockingStub _blockingStub = HelloServiceV1Grpc.newBlockingStub(_channel);

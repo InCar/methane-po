@@ -21,7 +21,7 @@ public class MonitorTest {
 
     @Test
     public void monitor() throws IOException {
-        ServerBuilder<?> serverBuilder = ServerBuilder.forPort(8888);
+        ServerBuilder<?> serverBuilder = ServerBuilder.forPort(5555);
         MonitorService target = new MonitorService();
 
         MockMonitor mockMonitor = new MockMonitor();
@@ -31,7 +31,7 @@ public class MonitorTest {
         Server channel = serverBuilder.build();
         channel.start();
 
-        ManagedChannel _channel = ManagedChannelBuilder.forAddress("127.0.0.1", 8888)
+        ManagedChannel _channel = ManagedChannelBuilder.forAddress("127.0.0.1", 5555)
                 .usePlaintext()
                 .build();
 
