@@ -44,7 +44,7 @@ public class MockMonitor implements IReceiver, IMonitor {
                 return integer;
             } else { //2、不存在创建一个对象
                 _mapVehicle.put(vin, 1);
-                return 1;
+                return integer++;
             }
         } catch (Exception e) {
             return -1;

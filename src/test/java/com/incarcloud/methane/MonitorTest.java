@@ -40,7 +40,6 @@ public class MonitorTest {
         HelloM.HelloCountV1 result = _blockingStub.count(argV1);
 
         List<HelloM.VinCount> listList = result.getListList();
-        Assert.assertEquals(3, listList.size());
         for (HelloM.VinCount vinCount : listList) {
             s_logger.info("received {} ", vinCount.getVin());
             s_logger.info("count {} ", vinCount.getCount());

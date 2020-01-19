@@ -18,7 +18,6 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Map;
 
 public class VehicleMgrTest {
     private static final Logger s_logger = LoggerFactory.getLogger(TransceiverGRPCTest.class);
@@ -74,9 +73,9 @@ public class VehicleMgrTest {
         for (Map.Entry<String, Integer> entry : map.entrySet()) {
             s_logger.info("monitor{}",entry.getKey());
             s_logger.info("monitor{}",entry.getValue());
-        }*/
+        }
         int test1 = mockMonitor.GetMsgCount("test1");
-        s_logger.info("number:" + test1);
+        s_logger.info("number:" + test1);*/
 
     }
 }
